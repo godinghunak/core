@@ -46,8 +46,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     except ConfigEntryAuthFailed:
         raise
     except Exception as err:
+        # Include the port in the error message to make debugging easier
         raise ConfigEntryNotReady(
-            f"Failed to connect to MyIntegration device at {entry.data[CONF_HOST]}"
+            f"Failed to connect to MyIntegration device at "
+            f"{entry.data[CONF_HOST]}:{entry.data[CONF_PORT]}"
         ) from err
 
     await coordinator.async_config_entry_first_refresh()
