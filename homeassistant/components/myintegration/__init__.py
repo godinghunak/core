@@ -77,6 +77,11 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             entry.entry_id
         )
         await coordinator.async_shutdown()
+        # Log when an entry is unloaded so it's easier to track in the logs
+        _LOGGER.debug(
+            "Successfully unloaded MyIntegration entry '%s'",
+            entry.title,
+        )
 
     return unload_ok
 
